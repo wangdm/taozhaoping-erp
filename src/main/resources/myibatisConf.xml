@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<properties>
+		<property name="dialect" value="oracle" />
+	</properties>
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+		<setting name="lazyLoadingEnabled" value="true" />
+		<setting name="multipleResultSetsEnabled" value="true" />
+		<setting name="useColumnLabel" value="true" />
+		<setting name="useGeneratedKeys" value="false" />
+		<setting name="defaultExecutorType" value="SIMPLE" />
+		<setting name="defaultStatementTimeout" value="25000" />
+	</settings>
+
+	<typeAliases>
+		<!-- <typeAlias alias="RoleToAuthorities" type="com.zh.base.model.RoleToAuthorities" 
+			/> <typeAlias alias="RoleToMenu" type="com.zh.base.model.RoleToMenu" /> -->
+		<typeAlias alias="User" type="com.zh.base.model.bean.User" />
+		<typeAlias alias="Menu" type="com.zh.base.model.bean.Menu" />
+		<typeAlias alias="Authorities" type="com.zh.base.model.bean.Authorities" />
+		<typeAlias alias="Enterprise" type="com.zh.base.model.bean.Enterprise" />
+		<typeAlias alias="Resourceinfo" type="com.zh.base.model.bean.Resourceinfo" />
+		<typeAlias alias="Role" type="com.zh.base.model.bean.Role" />
+		<typeAlias alias="RoleAuthorities" type="com.zh.base.model.bean.RoleAuthorities" />
+		<typeAlias alias="RoleMenu" type="com.zh.base.model.bean.RoleMenu" />
+		<typeAlias alias="Param" type="com.zh.base.model.bean.Param" />
+		<typeAlias alias="Notice" type="com.zh.base.model.bean.Notice" />
+
+		<!-- 业务 -->
+		<!-- 文件信息 -->
+		<typeAlias alias="FileInfo" type="com.zh.web.model.bean.FileInfo" />
+		<!-- 通讯录 -->
+		<typeAlias alias="MailList" type="com.zh.web.model.bean.MailList" />
+
+		<!-- 基础类别资料 -->
+		<typeAlias alias="BasiType" type="com.zh.base.model.bean.BasiType" />
+
+		<!-- 数据库字典 -->
+		<typeAlias alias="Dictionary" type="com.zh.base.model.bean.Dictionary" />
+
+		<!-- 仓库管理 -->
+		<typeAlias alias="Warehouse" type="com.zh.base.model.bean.Warehouse" />
+
+		<!-- 部门配置 -->
+		<typeAlias alias="Dept" type="com.zh.base.model.bean.Dept" />
+
+		<!-- 客户资料 -->
+
+		<!-- 客户资料 -->
+		<typeAlias alias="Customer" type="com.zh.web.model.bean.Customer" />
+
+		<!-- 库存量 -->
+		<typeAlias alias="Stock" type="com.zh.web.model.bean.Stock" />
+
+		<!-- 产品资料 -->
+		<typeAlias alias="Products" type="com.zh.web.model.bean.Products" />
+
+		<!-- 产品结构 -->
+		<typeAlias alias="ProductStructure" type="com.zh.web.model.bean.BomPrimary" />
+
+		<!-- bom主表 -->
+		<typeAlias alias="BomPrimary" type="com.zh.web.model.bean.BomPrimary" />
+
+		<!-- bom明细表 -->
+		<typeAlias alias="BomDetail" type="com.zh.web.model.bean.BomDetail" />
+
+		<!-- bom替代料表 -->
+		<typeAlias alias="BomSub" type="com.zh.web.model.bean.BomSub" />
+
+		<!-- 入库头表 -->
+		<typeAlias alias="StoragePrimary" type="com.zh.web.model.bean.StoragePrimary" />
+
+		<!-- 入库明细表 -->
+		<typeAlias alias="StorageDetail" type="com.zh.web.model.bean.StorageDetail" />
+
+		<!-- 出库头表 -->
+		<typeAlias alias="LibraryPrimary" type="com.zh.web.model.bean.LibraryPrimary" />
+
+		<!-- 出库明细表 -->
+		<typeAlias alias="LibraryDetail" type="com.zh.web.model.bean.LibraryDetail" />
+
+		<!-- 销售订单主表 -->
+		<typeAlias alias="SalesOrderPrimary" type="com.zh.web.model.bean.SalesOrderPrimary" />
+
+		<!-- 销售订单明细 -->
+		<typeAlias alias="SalesOrderDetail" type="com.zh.web.model.bean.SalesOrderDetail" />
+
+		<!-- 切割方案 -->
+		<typeAlias alias="CuttingScheme" type="com.zh.web.model.bean.CuttingScheme" />
+		
+		<!-- 需求清单头表 -->
+		<typeAlias alias="ProcurementDemandPrimary" type="com.zh.web.model.bean.ProcurementDemandPrimary" />
+		
+		<!-- 需求清单明细-->
+		<typeAlias alias="ProcurementDemandDetail" type="com.zh.web.model.bean.ProcurementDemandDetail" />
+	
+		<!-- 采购订单头表 -->
+		<typeAlias alias="PurchaseOrderPrimary" type="com.zh.web.model.bean.PurchaseOrderPrimary" />
+		
+		<!-- 采购订单明细-->
+		<typeAlias alias="PurchaseOrderDetail" type="com.zh.web.model.bean.PurchaseOrderDetail" />
+	
+		<!-- 工序 -->
+		<typeAlias alias="ProcessBean" type="com.zh.web.model.bean.ProcessBean"/>
+		
+		<!-- 产品加工工序维护 -->
+		<typeAlias alias="ProductProcess" type="com.zh.web.model.bean.ProductProcess"/>
+		
+		<!-- 加工单头表 -->		
+		<typeAlias alias="ProcessingSinglePrimary" type="com.zh.web.model.bean.ProcessingSinglePrimary"/>
+		
+		<!-- 加工单明细 -->
+		<typeAlias alias="ProcessingSingleDetail" type="com.zh.web.model.bean.ProcessingSingleDetail"/>
+
+		<!-- 库存盘点_头表 -->
+		<typeAlias alias="InventoryCountPrimary" type="com.zh.web.model.bean.InventoryCountPrimary"/>
+		
+		<!-- 库存盘点_明细 -->
+		<typeAlias alias="InventoryCountDetail" type="com.zh.web.model.bean.InventoryCountDetail"/>
+		
+		<!-- 生产任务单 -->
+		<typeAlias alias="ProductionTask" type="com.zh.web.model.bean.ProductionTask"/>
+		
+		<!-- 生产任务单_明细 -->
+		<typeAlias alias="ProductionTaskDetail" type="com.zh.web.model.bean.ProductionTaskDetail"/>
+
+		<!-- 领料单_明细 -->
+		<typeAlias alias="MaterialRequisitionDetail" type="com.zh.web.model.bean.MaterialRequisitionDetail"/>
+	
+		<!-- 销售订单明细产品结构表 -->
+		<typeAlias alias="SalesOrderBom" type="com.zh.web.model.bean.SalesOrderBom"/>
+		
+		<!-- 验收单 -->
+		<typeAlias alias="AcceptanceList" type="com.zh.web.model.bean.AcceptanceList"/>
+
+		<!-- 加工单入库明细 -->
+		<typeAlias alias="ProductionStorageDetail" type="com.zh.web.model.bean.ProductionStorageDetail"/>
+		
+		<!-- 采购助理视图 -->
+		<typeAlias alias="PurchasingAssistant" type="com.zh.web.model.bean.PurchasingAssistant"/>
+	</typeAliases>
+
+	<plugins>
+		<plugin interceptor="com.zh.core.base.interceptor.PaginationInterceptor">
+		</plugin>
+	</plugins>
+	<!-- spring中已经配置,这里不需要在配置 <mappers> <mapper resource="resource/UserMapper.xml" 
+		/> </mappers> -->
+</configuration> 

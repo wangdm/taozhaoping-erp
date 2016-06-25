@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!--
+		=============================================== - struts拦截器配置注入 -
+		@author Flouny.Caesar - @date 2009-12-25 -
+		===============================================
+	-->
+	<include file="struts-default.xml" />
+	<include file="struts/struts-framework.xml" />
+	<!-- 验证码 -->
+	<include file="struts/struts-validate-code.xml" />
+	<!-- 登录 -->
+	<include file="struts/struts-login.xml" />
+	<!-- 主页 -->
+	<include file="struts/struts-main.xml" />
+	<!-- 接口集合 -->
+	<include file="struts/struts-interface.xml"></include>
+	<!-- 业务 -->
+	<include file="struts/struts-business.xml"></include>
+	<!--
+		===============================================
+		struts取消Struts2标签的布局 - @author Flouny.Caesar - @date 2009-12-25 -
+		===============================================
+	-->
+	<constant name="struts.ui.theme" value="simple" />
+	<!-- action names 的匹配 -->
+	<constant name="struts.allowed.action.names" value="[a-zA-Z0-9._!/\-]*" />
+</struts>  

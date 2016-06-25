@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	   <!-- 
+		**
+		**主页
+		**
+		 -->
+	<package name="business" namespace="/business" extends="struts-base">
+		
+		<!-- 客户资源-->
+		<action name="customerInfo" class="com.zh.web.action.CustomerAction">
+			<result name="success">/pages/business/customer/List.jsp</result>
+			<result name="editor">/pages/business/customer/edit.jsp</result>
+			<result name="save" type="redirectAction">
+				<param name="method">editor</param>
+				<param name="actionName">customerInfo</param>
+				<param name="namespace">/business</param>
+				<param name="menuId">${menuId}</param>
+				<param name="menu2Id">${menu2Id}</param>
+				<param name="id">${formId}</param>
+				<param name="tabID">${tabID}</param>
+				<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">customerInfo</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
+		
+		<!-- 产品资料-->
+		<action name="productsInfo" class="com.zh.web.action.ProductsAction">
+			<result name="success">/pages/business/products/List.jsp</result>
+			<result name="editor">/pages/business/products/edit.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">productsInfo</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
+		
+		<!-- 产品结构-->
+		<action name="productStruct" class="com.zh.web.action.ProductStructAction">
+			<result name="success">/pages/business/bom/List.jsp</result>
+			<result name="editor">/pages/business/bom/edit.jsp</result>
+			<result name="view">/pages/business/bom/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">productStruct</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="save" type="redirectAction">
+				<param name="method">editor</param>
+				<param name="actionName">productStruct</param>
+				<param name="namespace">/business</param>
+				<param name="menuId">${menuId}</param>
+				<param name="menu2Id">${menu2Id}</param>
+				<param name="id">${id}</param>
+				<param name="tabID">${tabID}</param>
+				<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="verifyDetail" type="json">
+			    <param name="root">productStructModel.dataMap</param>
+			    <param name="includeProperties">*</param>
+			</result>
+			<result name="verifySub" type="json">
+			    <param name="root">productStructModel.dataMap</param>
+			</result>
+		</action>
+		
+		<!-- 其他入库 -->
+		<action name="stockStorage" class="com.zh.web.action.StoragePrimaryAction">
+			<result name="success">/pages/business/stockstorage/List.jsp</result>
+			<result name="editor">/pages/business/stockstorage/edit.jsp</result>
+			<result name="view">/pages/business/stockstorage/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">stockStorage</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="save" type="redirectAction">
+				<param name="method">editor</param>
+				<param name="actionName">stockStorage</param>
+				<param name="namespace">/business</param>
+				<param name="menuId">${menuId}</param>
+				<param name="menu2Id">${menu2Id}</param>
+				<param name="id">${formId}</param>
+				<param name="tabID">${tabID}</param>
+				<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
+		
+		<!-- 其他出库 -->
+		<action name="stockLibrary" class="com.zh.web.action.LibraryPrimaryAction">
+			<result name="success">/pages/business/stocklibrary/List.jsp</result>
+			<result name="editor">/pages/business/stocklibrary/edit.jsp</result>
+			<result name="view">/pages/business/stocklibrary/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">stockLibrary</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="save" type="redirectAction">
+				<param name="method">editor</param>
+				<param name="actionName">stockLibrary</param>
+				<param name="namespace">/business</param>
+				<param name="menuId">${menuId}</param>
+				<param name="menu2Id">${menu2Id}</param>
+				<param name="id">${formId}</param>
+				<param name="tabID">${tabID}</param>
+				<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
+		
+		<!-- 销售订单  -->
+		<action name="SalesOrder" class="com.zh.web.action.SalesOrderAction">
+			<result name="success">/pages/business/salesorder/List.jsp</result>
+			<result name="editor">/pages/business/salesorder/edit.jsp</result>
+			<result name="view">/pages/business/salesorder/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">SalesOrder</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="save" type="redirectAction">
+				<param name="method">editor</param>
+				<param name="actionName">SalesOrder</param>
+				<param name="namespace">/business</param>
+				<param name="menuId">${menuId}</param>
+				<param name="menu2Id">${menu2Id}</param>
+				<param name="id">${formId}</param>
+				<param name="tabID">${tabID}</param>
+				<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
+		
+		<!-- 切割方案-->
+		<action name="cuttingSchemeConfig" class="com.zh.web.action.CuttingSchemeAction">
+			<result name="success">/pages/business/cuttingScheme/List.jsp</result>
+			<result name="editor">/pages/business/cuttingScheme/edit.jsp</result>
+			<result name="view">/pages/business/cuttingScheme/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">cuttingSchemeConfig</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="save" type="redirectAction">
+				<param name="method">editor</param>
+				<param name="actionName">cuttingSchemeConfig</param>
+				<param name="namespace">/business</param>
+				<param name="menuId">${menuId}</param>
+				<param name="menu2Id">${menu2Id}</param>
+				<param name="id">${formId}</param>
+				<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
+		
+		<!-- 采购需求清单 -->
+		<action name="procurementDemand" class="com.zh.web.action.ProcurementDemandAction">
+			<result name="success">/pages/business/procurementDemand/List.jsp</result>
+			<result name="editor">/pages/business/procurementDemand/edit.jsp</result>
+			<result name="view">/pages/business/procurementDemand/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">procurementDemand</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="save" type="redirectAction">
+				<param name="method">editor</param>
+				<param name="actionName">procurementDemand</param>
+				<param name="namespace">/business</param>
+				<param name="menuId">${menuId}</param>
+				<param name="menu2Id">${menu2Id}</param>
+				<param name="id">${formId}</param>
+				<param name="tabID">${tabID}</param>
+				<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
+		
+		<!-- 采购订单 -->
+		<action name="purchaseOrder" class="com.zh.web.action.PurchaseOrderAction">
+			<result name="success">/pages/business/purchaseOrder/List.jsp</result>
+			<result name="editor">/pages/business/purchaseOrder/edit.jsp</result>
+			<result name="view">/pages/business/purchaseOrder/view.jsp</result>
+			<!-- 采购需求单列表 -->
+			<result name="popList">/pages/business/purchaseOrder/popList.jsp</result>
+			<result name="popListJson" type="json">
+				<param name="root">purchaseOrderModel.procurementDemandDetailList</param>
+			</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">purchaseOrder</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="save" type="redirectAction">
+				<param name="method">editor</param>
+				<param name="actionName">purchaseOrder</param>
+				<param name="namespace">/business</param>
+				<param name="menuId">${menuId}</param>
+				<param name="menu2Id">${menu2Id}</param>
+				<param name="id">${formId}</param>
+				<param name="tabID">${tabID}</param>
+				<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
+		
+		<!-- 订单入库 -->
+		<action name="orderStorage" class="com.zh.web.action.OrderStorageAction">
+			<result name="success">/pages/business/orderStorage/List.jsp</result>
+			<result name="editor">/pages/business/orderStorage/edit.jsp</result>
+			<result name="view">/pages/business/orderStorage/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">orderStorage</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="save" type="redirectAction">
+				<param name="method">editor</param>
+				<param name="actionName">orderStorage</param>
+				<param name="namespace">/business</param>
+				<param name="menuId">${menuId}</param>
+				<param name="menu2Id">${menu2Id}</param>
+				<param name="id">${formId}</param>
+				<param name="tabID">${tabID}</param>
+				<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="json" type="json">
+			    <param name="root">storagePrimaryModel.dataMap</param>
+			</result>
+		</action>
+		
+		<!-- 工序管理-->
+		<action name="processInfo" class="com.zh.web.action.ProcessAction">
+			<result name="success">/pages/business/process/List.jsp</result>
+			<result name="editor">/pages/business/process/edit.jsp</result>
+			<result name="view">/pages/business/process/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">processInfo</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
+		
+		<!-- 加工单 -->
+		<action name="processingSingle" class="com.zh.web.action.ProcessingSingleAction">
+			<result name="success">/pages/business/processingSingle/List.jsp</result>
+			<result name="editor">/pages/business/processingSingle/edit.jsp</result>
+			<result name="view">/pages/business/processingSingle/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">processingSingle</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="save" type="redirectAction">
+				<param name="method">editor</param>
+				<param name="actionName">processingSingle</param>
+				<param name="namespace">/business</param>
+				<param name="menuId">${menuId}</param>
+				<param name="menu2Id">${menu2Id}</param>
+				<param name="id">${formId}</param>
+				<param name="tabID">${tabID}</param>
+				<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="json" type="json">
+			    <param name="root">processingSingleModel.dataMap</param>
+			</result>
+		</action>
+		
+		<!-- 库存盘点 -->
+		<action name="inventoryCount" class="com.zh.web.action.InventoryCountAction">
+			<result name="success">/pages/business/inventoryCount/List.jsp</result>
+			<result name="editor">/pages/business/inventoryCount/edit.jsp</result>
+			<result name="view">/pages/business/inventoryCount/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">inventoryCount</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="save" type="redirectAction">
+				<param name="method">editor</param>
+				<param name="actionName">inventoryCount</param>
+				<param name="namespace">/business</param>
+				<param name="menuId">${menuId}</param>
+				<param name="menu2Id">${menu2Id}</param>
+				<param name="id">${formId}</param>
+				<param name="tabID">${tabID}</param>
+				<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="json" type="json">
+			    <param name="root">inventoryCountModel.dataMap</param>
+			</result>
+		</action>
+		
+		<!-- 库存 -->
+		<action name="stockView" class="com.zh.web.action.StockAction">
+			<result name="success">/pages/business/stock/List.jsp</result>
+		</action>
+		
+		<!-- 验收单  -->
+		<action name="acceptance" class="com.zh.web.action.AcceptanceAction">
+			<result name="success">/pages/business/acceptance/List.jsp</result>
+			<result name="editor">/pages/business/acceptance/edit.jsp</result>
+			<result name="view">/pages/business/acceptance/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">acceptance</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="save" type="redirectAction">
+				<param name="method">editor</param>
+				<param name="actionName">acceptance</param>
+				<param name="namespace">/business</param>
+				<param name="menuId">${menuId}</param>
+				<param name="menu2Id">${menu2Id}</param>
+				<param name="id">${id}</param>
+				<param name="tabID">${tabID}</param>
+				<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
+		
+		<!-- 生产任务单  -->
+		<action name="productionTask" class="com.zh.web.action.ProductionTaskAction">
+			<result name="success">/pages/business/productionTask/List.jsp</result>
+			<result name="editor">/pages/business/productionTask/edit.jsp</result>
+			<result name="view">/pages/business/productionTask/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">productionTask</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
+		
+		<!-- 领料单  -->
+		<action name="material" class="com.zh.web.action.MaterialAction">
+			<result name="success">/pages/business/material/List.jsp</result>
+			<result name="editor">/pages/business/material/edit.jsp</result>
+			<result name="view">/pages/business/material/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">material</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
+		
+		<!-- 生产入库 -->
+		<action name="productionStorage" class="com.zh.web.action.ProductionStorageAction">
+			<result name="success">/pages/business/productionStorage/List.jsp</result>
+			<result name="editor">/pages/business/productionStorage/edit.jsp</result>
+			<result name="view">/pages/business/productionStorage/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">productionStorage</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
+		
+		<!-- 订单出库 -->
+		<action name="orderDelivery" class="com.zh.web.action.OrderDeliveryAction">
+			<result name="success">/pages/business/orderDelivery/List.jsp</result>
+			<result name="editor">/pages/business/orderDelivery/edit.jsp</result>
+			<result name="view">/pages/business/orderDelivery/view.jsp</result>
+			<result name="editorSuccess" type="redirectAction">
+				<param name="actionName">orderDelivery</param>  
+    			<param name="namespace">/business</param>
+    			<param name="menuId">${menuId}</param>
+    			<param name="menu2Id">${menu2Id}</param>
+    			<param name="spaceId">${spaceId}</param>
+			</result>
+			<result name="save" type="redirectAction">
+				<param name="method">editor</param>
+				<param name="actionName">orderDelivery</param>
+				<param name="namespace">/business</param>
+				<param name="menuId">${menuId}</param>
+				<param name="menu2Id">${menu2Id}</param>
+				<param name="id">${formId}</param>
+				<param name="tabID">${tabID}</param>
+				<param name="spaceId">${spaceId}</param>
+			</result>
+		</action>
+		
+		<!-- 采购助理 -->
+		<action name="purchasingAssistant" class="com.zh.web.action.PurchasingAssistantAction">
+			<result name="success">/pages/business/purchasingAssistant/List.jsp</result>
+		</action>
+	</package>
+</struts>

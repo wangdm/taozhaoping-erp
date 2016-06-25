@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="M_Procurement_Detail">
+	<resultMap id="T_Procurement_Detail" type="ProcurementDemandDetail">
+		<id column="ID" property="id" />
+		<result column="ProcuremenID" property="procurementID" />
+		<result column="ProductsID" property="productsID" />
+		<result column="Demand_Number" property="demandNumber" />
+		<result column="isMainProducts" property="isMainProducts" />
+		<result column="Remarks" property="remarks" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="T_Procurement_Detail_lIST" type="ProcurementDemandDetail"
+		extends="T_Procurement_Detail">
+		<result column="PRODUCTS_NAME" property="productsName"
+			jdbcType="VARCHAR" />
+		<result column="MEASUREMENT_COMPANY" property="measurementCompany"
+			jdbcType="VARCHAR" />
+		<result column="orderID" property="orderID" jdbcType="VARCHAR" />
+		<result column="placeOrderNumber" property="placeOrderNumber" />
+		<result column="notPlaceOrderNumber" property="notPlaceOrderNumber" />
+		<result column="storageNumber" property="storageNumber" />
+		<result column="approvalStatus" property="approvalStatus" />
+		<result column="estimatedPrice" property="estimatedPrice"
+			jdbcType="FLOAT" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID,
+		ProcuremenID ,
+		ProductsID ,
+		isMainProducts,
+		Demand_Number ,
+		Remarks
+	</sql>
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="procurementID != null">
+				and ProcuremenID = #{procurementID}
+			</if>
+			<if test="productsID != null">
+				and s.ProductsID = #{productsID}
+			</if>
+		</where>
+	</sql>
+
+	<select id="select" resultMap="T_Procurement_Detail"
+		parameterType="ProcurementDemandDetail">
+		select
+		<include refid="Base_Column_List" />
+		from T_Procurement_Demand_DETAIL s
+		<include refid="where" />
+	</select>
+
+	<select id="list" resultMap="T_Procurement_Detail_lIST"
+		parameterType="ProcurementDemandDetail">
+		select ID,
+		ProcuremenID,
+		orderID,
+		ProductsID,
+		isMainProducts,
+		Demand_Number,
+		placeOrderNumber,
+		notPlaceOrderNumber,
+		Remarks,
+		storageNumber,
+		PRODUCTS_NAME,
+		MEASUREMENT_COMPANY,
+		estimatedPrice
+		from (select S.ID,
+		ProcuremenID,
+		o.order_id as orderID,
+		p.status as approvalStatus,
+		s.ProductsID,
+		isMainProducts,
+		Demand_Number,
+		CASE
+		WHEN o.purchase_number is null then
+		0
+		when o.purchase_number is not null then
+		o.purchase_number
+		end as placeOrderNumber,
+		CASE
+		WHEN o.purchase_number is null THEN
+		s.demand_number
+		WHEN o.purchase_number is not null THEN
+		s.demand_number - o.purchase_number
+		END as notPlaceOrderNumber,
+		s.Remarks,
+		sp.storageNumber,
+		name as PRODUCTS_NAME,
+		MEASUREMENT_COMPANY,
+		t.ESTIMATED_PRICE as estimatedPrice
+		from T_Procurement_Demand_DETAIL S
+		LEFT JOIN t_Procurement_Demand_Primary p
+		on s.procuremenid = p.id
+		left join T_SALES_ORDER_PRIMARY o 
+    	on p.order_id=o.id
+		LEFT JOIN T_PRODUCTS T
+		ON T.ID = S.ProductsID
+		left join ( select procurementid,productsid,sum(purchase_number)
+		purchase_number from t_purchaseorder_detail group by
+		procurementid,productsid) o
+		on s.id = o.procurementid
+		 left join ( select procurementid,
+                           productsid,
+                           sum(sd.storage_number) storageNumber
+                      from t_purchaseorder_detail pd left join t_purchaseorder_primary pp
+                       on pd.purchaseorderid = pp.id
+                       left join t_storage_detail sd
+                       on sd.purchaseorderid=pd.id
+                       where pp.status=3
+                     group by procurementid, productsid) sp
+            on s.id = sp.procurementid
+         )
+		<where>
+		<if test="notPlaceOrderNumber != null">
+			and NOTPLACEORDERNUMBER > #{notPlaceOrderNumber}
+		</if>
+		<if test="approvalStatus != null">
+			and approvalStatus = #{approvalStatus}
+		</if>
+		<if test="id != null">
+			and id = #{id}
+		</if>
+		<if test="procurementID != null">
+			and ProcuremenID = #{procurementID}
+		</if>
+		<if test="productsID != null">
+			and s.ProductsID = #{productsID}
+		</if>
+		</where>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+
+	<select id="count" resultType="Integer" parameterType="ProcurementDemandDetail">
+		select count(S.ID)
+
+		from T_Procurement_Demand_DETAIL S
+		LEFT JOIN t_Procurement_Demand_Primary p
+		on s.procuremenid = p.id
+		LEFT JOIN T_PRODUCTS T
+		ON T.ID = S.ProductsID
+		left join ( select procurementid,productsid,sum(purchase_number)
+		purchase_number from t_purchaseorder_detail group by
+		procurementid,productsid) o
+		on s.id = o.procurementid
+		<where>
+		<if test="notPlaceOrderNumber != null">
+			and NOTPLACEORDERNUMBER = #{notPlaceOrderNumber}
+		</if>
+		<if test="approvalStatus != null">
+			and p.status = #{approvalStatus}
+		</if>
+		<if test="id != null">
+			and id = #{id}
+		</if>
+		<if test="procurementID != null">
+			and ProcuremenID = #{procurementID}
+		</if>
+		<if test="productsID != null">
+			and s.ProductsID = #{productsID}
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="ProcurementDemandDetail">
+		<selectKey keyProperty="id" resultType="Long" order="BEFORE">
+			select
+			SEQUENCE_T_Procurement_DETAIL.nextval from dual
+		</selectKey>
+		insert into T_Procurement_Demand_DETAIL
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="procurementID != null">
+				ProcuremenID,
+			</if>
+			<if test="productsID != null">
+				ProductsID,
+			</if>
+			<if test="isMainProducts != null">
+				isMainProducts,
+			</if>
+			<if test="demandNumber != null">
+				Demand_Number,
+			</if>
+			<if test="remarks != null">
+				Remarks,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="procurementID != null">
+				${procurementID},
+			</if>
+			<if test="productsID != null">
+				${productsID},
+			</if>
+			<if test="isMainProducts != null">
+				${isMainProducts},
+			</if>
+			<if test="demandNumber != null">
+				${demandNumber},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="ProcurementDemandDetail">
+		update T_Procurement_Demand_DETAIL
+		<set>
+			<if test="procurementID != null">
+				ProcuremenID = #{procurementID},
+			</if>
+			<if test="productsID != null">
+				ProductsID = #{productsID},
+			</if>
+			<if test="isMainProducts != null">
+				isMainProducts = ${isMainProducts},
+			</if>
+			<if test="demandNumber != null">
+				Demand_Number = #{demandNumber},
+			</if>
+			<if test="remarks != null">
+				Remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+	<delete id="delete" parameterType="ProcurementDemandDetail">
+		delete from
+		T_Procurement_Demand_DETAIL
+		where ID = #{id}
+	</delete>
+</mapper>
